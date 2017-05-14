@@ -1,0 +1,48 @@
+<h1>タスクの登録</h1>
+
+<%= form_tag({action: :create},{method: :post}) do %>
+ 
+ <table class="table table-bordered">
+     <tr>
+       <th class="text-center">タスク</th>
+       <th class="text-center">状態</th>
+       <th class="text-center">期限</th>
+     </tr>
+  
+   <% (0..2).each do |n| %>
+      <tr>
+       <td class="form"><%= text_field_tag "content#{n}", "", :size => 60 %></td>
+       <td class="form"><%= select_tag "status#{n}", options_for_select(["未着手", "対応中", "完了"]) %></td>
+       <td class="form"><%= date_field_tag "limit#{n}" %></td>
+      </tr>
+         <% if @errors %>
+            <tr>
+                <td>
+                    <div class="alert alert-warning">
+                        <% @errors[n].each do |e| %>
+                            <% if e == "Content can't be blank" %>
+                                <%= "タスクの入力がありません" %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="alert alert-warning">
+                        <% @errors[n].each do |e| %>
+                            <% if e == "Limit can't be blank" %>
+                                <%= "期限の入力がありません" %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </td>
+            </tr>
+        <% end %>
+      </div>
+    <% end %>
+  </table>
+ 
+
+  <%= submit_tag "登録" ,class:"btn btn-primary" %>
+<% end %>
+

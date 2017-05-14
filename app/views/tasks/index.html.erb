@@ -1,0 +1,54 @@
+ <h1>未了タスク一覧</h1>
+
+<% if @tasks.any? %>
+<table class="table table-striped">
+    <thead>
+        <tr　class=text-center>
+            <th>id</th>
+            <th>タスク</th>
+            <th>状態</th>
+            <th>期限</th>
+            <th></th>
+            <th></th>
+            <th></tn>
+        </tr>
+    </thead>
+    <tbody>
+    
+         <% today = Time.now.getlocal("+09:00").to_date %>
+         <% @tasks.each do |task| %>
+            <% if task.limit < today %>
+                <tr class= "danger" %>
+            <% elsif task.limit == today %>
+                <tr class = "warning" %>
+            <% elsif task.limit <= today + 3.day %>
+                <tr class = "info" %>
+            <% else %>
+                <tr>
+            <% end %>
+        <td><%= task.id %></td>
+        <td><%= task.content %> </td>
+        <td><%= task.status %></td>
+        <td><%= task.limit %></td>
+        <td><%= link_to "編集", edit_task_path(task) %></td>
+        <td><%= link_to "削除", task, method: :delete,data: { confirm: "本当に削除してよろしいですか？"} %></td>
+        <td>
+            <% if task.limit < today %>
+                <%= "期限を過ぎました" %>
+            <% elsif task.limit == today %>
+                <%= "今日が期限です" %>
+            <% elsif task.limit <= today + 3.day %>
+                <%= "期限まで３日以内です" %>
+            <% else %>
+                <%= "               " %>
+            <% end %>
+        </td>
+    </tr>
+    <% end %>
+    </tbody>
+    </table>
+    <div>
+        <%= paginate @tasks %>
+    </div>
+<% end %>
+
