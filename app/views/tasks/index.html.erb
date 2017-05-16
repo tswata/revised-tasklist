@@ -16,7 +16,7 @@
     <tbody>
     
          <% today = Time.now.getlocal("+09:00").to_date %>
-          <% @tasks.each do |task| %>
+         <% @tasks.each do |task| %>
             <% if task.limit < today %>
                 <tr class= "danger" %>
             <% elsif task.limit == today %>
