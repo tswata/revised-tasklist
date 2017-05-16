@@ -1,6 +1,10 @@
+<% if logged_in? %>
+ <%= current_user.name %><%= "さんのタスク" %>
+ <% else %>
 <div class = "center jumbotron">
   <div class="text-center">
     <h2>タスクリストへようこそ</h2>
     <%= link_to "登録はこちら", signup_path, class:"btn btn-lg btn-primary" %>
   </div>
 </div>
+<% end %>

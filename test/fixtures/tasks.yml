@@ -3,9 +3,11 @@
 one:
   content: MyString
   status: MyString
-  limit: 2017-05-10
+  limit: 2017-05-16
+  user: one
 
 two:
   content: MyString
   status: MyString
-  limit: 2017-05-10
+  limit: 2017-05-16
+  user: two

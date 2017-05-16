@@ -4,6 +4,7 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.string :content
       t.string :status
       t.date :limit
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

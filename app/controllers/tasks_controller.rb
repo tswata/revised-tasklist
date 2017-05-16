@@ -12,21 +12,29 @@ class TasksController < ApplicationController
   end
   
   def new
+   
+    
   end
 
   def create
+    p "!!!!!"
+    p params[:user_id]
+    
     @array = []
     @errors = []
     (0..2).each  do |n|
       task = Task.new(content: params["content#{n}"],
                     status:  params["status#{n}"],
-                    limit:   params["limit#{n}"])
-      task.valid?
+                    limit:   params["limit#{n}"],
+                    user_id: params[:user_id])
+                    
+      task.validate
       @errors << task.errors.full_messages
       if params["content#{n}"].present? && params["limit#{n}"].present?
         @array[n] =Task.new(content: params["content#{n}"],
                     status:  params["status#{n}"],
-                    limit:   params["limit#{n}"])
+                    limit:   params["limit#{n}"],
+                    user_id: params[:user_id])
       else
         @array[n] = nil
       end
@@ -34,7 +42,7 @@ class TasksController < ApplicationController
     p "***********************"
     p @errors
    x = []
-   
+  
     (0..2).each do |n|
       if @array[n] != nil
         if @array[n].save
@@ -54,7 +62,7 @@ class TasksController < ApplicationController
       flash[:success] = "タスクが登録されました。"
       redirect_to root_url
     end
-  end 
+  end
     
 
   def edit
@@ -92,7 +100,7 @@ class TasksController < ApplicationController
   private
   
   def task_params
-    params.require(:task).permit(:content,:status,:limit)
+    params.require(:task).permit(:content,:status,:limit, :user)
   end
   
   def set_task

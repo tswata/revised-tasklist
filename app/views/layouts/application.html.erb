@@ -24,6 +24,10 @@
         <div class="current" %>
           <%= @current.getlocal("+09:00").strftime("%Y年%m月%d日　%H時%M分") %>
          </div>
+        <% if logged_in? %>
+        <%= current_user.name %><%= "さんのタスク" %>
+        <% end %>
+        
       <%= yield %>
       </div>
     </div>

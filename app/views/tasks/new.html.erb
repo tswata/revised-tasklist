@@ -1,6 +1,19 @@
 <h1>タスクの登録</h1>
 
 <%= form_tag({action: :create},{method: :post}) do %>
+
+<% params[:user_id] = current_user.id %>
+
+ 
+ <div class="form"><%= hidden_field_tag :user_id ,params[:user_id] %></div>
+ 
+ <% if false %>
+ <%= params.inspect %> <br>
+ <%= "----------- "%> <br>
+ <%= params[:user_id] %> <br>
+ <% end %>
+ 
+
  
  <table class="table table-bordered">
      <tr>
@@ -9,12 +22,14 @@
        <th class="text-center">期限</th>
      </tr>
   
+  
    <% (0..2).each do |n| %>
       <tr>
-       <td class="form"><%= text_field_tag "content#{n}", "", :size => 60 %></td>
-       <td class="form"><%= select_tag "status#{n}", options_for_select(["未着手", "対応中", "完了"]) %></td>
-       <td class="form"><%= date_field_tag "limit#{n}" %></td>
+       <td class="form"><%= text_field_tag "content#{n}", params["content#{n}"], :size => 60 %></td>
+       <td class="form"><%= select_tag "status#{n}", options_for_select(["未着手", "対応中"], params["status#{n}"]) %></td>
+       <td class="form"><%= date_field_tag "limit#{n}",params["limit#{n}"] %></td>
       </tr>
+      
          <% if @errors %>
             <tr>
                 <td>
